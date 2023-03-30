@@ -12,12 +12,13 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "pennyblack/php-api-client": "^0.1.2"
+        "guzzlehttp/guzzle": "^7.5",
+        "pennyblack/php-sdk": "^1.0.0"
     },
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:pennyblack-io/php-api-client.git"
+            "url": "git@github.com:pennyblack-io/php-sdk.git"
         }
     ],
     "autoload": {
@@ -26,6 +27,9 @@
         }
     },
     "config": {
+        "platform": {
+            "php": "7.4.0"
+        },
         "preferred-install": "dist",
         "optimize-autoloader": true,
         "prepend-autoloader": false

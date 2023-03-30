@@ -1,29 +1,34 @@
 <?php
 
-namespace PennyBlackWoo\Api;
+namespace PennyBlackWoo\Factory;
 
+use GuzzleHttp\Psr7\HttpFactory;
+use GuzzleHttp\Client;
 use PennyBlack\Api;
-use PennyBlack\Client\PennyBlackClient;
 use PennyBlackWoo\Admin\Settings;
 use PennyBlackWoo\Exception\MissingApiConfigException;
 
 defined( 'ABSPATH' ) || exit;
 
-class ClientFactory
+class ApiFactory
 {
     /**
      * @return Api
      * @throws MissingApiConfigException
      */
-    public function getApiClient()
+    public static function create(): Api
     {
         $apiKey = \WC_Admin_Settings::get_option(Settings::FIELD_API_KEY);
-        $sandboxMode = \WC_Admin_Settings::get_option(Settings::FIELD_ENVIRONMENT) === Settings::ENVIRONMENT_TEST;
+        $isTest = \WC_Admin_Settings::get_option(Settings::FIELD_ENVIRONMENT) === Settings::ENVIRONMENT_TEST;
 
         if ($apiKey === null) {
             throw new MissingApiConfigException('Cannot instantiate PennyBlack API because API key is not set.');
         }
 
-        return new Api(new PennyBlackClient($apiKey, $sandboxMode));
+        $httpClient = new Client();
+        $streamFactory = new HttpFactory();
+        $requestFactory = new HttpFactory();
+
+        return new Api($httpClient, $requestFactory, $streamFactory, $apiKey, $isTest);
     }
 }

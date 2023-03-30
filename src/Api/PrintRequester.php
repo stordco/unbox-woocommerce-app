@@ -2,18 +2,20 @@
 
 namespace PennyBlackWoo\Api;
 
+use PennyBlack\Api;
+
 class PrintRequester
 {
-    private $clientFactory;
+    private Api $api;
 
-    public function __construct()
+    public function __construct(Api $api)
     {
-        $this->clientFactory = new ClientFactory();
+        $this->api = $api;
     }
 
     public function print(\WC_Order $order)
     {
-        $api = $this->clientFactory->getApiClient();
-        $api->requestPrint($order->get_number());
+        // TODO: More here...
+        $this->api->requestPrint($order->get_number());
     }
 }
