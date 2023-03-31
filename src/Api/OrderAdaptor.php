@@ -16,15 +16,32 @@ class OrderAdaptor
         'wc-refunded',
     ];
 
-    const ORIGIN_WOOCOMMERCE = 'woocommerce';
-
-    public function adaptOrder(\WC_Order $order)
+    public function adaptCustomer(\WC_Order $order): Customer
     {
         /** @var \WC_User $user */
         $user = $order->get_user();
 
         $allCustomerOrders = $this->getCustomerOrderHistory($order->get_customer_id());
 
+        $customer = new Customer();
+        $customer->setVendorCustomerId((string) $order->get_customer_id())
+            ->setFirstName($order->get_shipping_first_name() ?: ($user ? $user->first_name : ''))
+            ->setLastName($order->get_shipping_last_name() ?: ($user ? $user->last_name : ''))
+            ->setEmail($order->get_billing_email())
+            ->setLanguage($this->mapLocaleToLanguage($user->get_locale()))
+            // TODO: Unknown by default, these need plugins
+            // ->setMarketingConsent(null)
+            // ->setTags([])
+            ->setTotalOrders(count($allCustomerOrders))
+            ->setTotalSpent(array_sum(array_map(function ($order) {
+                return $order->get_total();
+            }, $allCustomerOrders)));
+
+        return $customer;
+    }
+
+    public function adaptOrder(\WC_Order $order): Order
+    {
         $skus = [];
         $titles = [];
         /** @var \WC_Order_Item $item */
@@ -36,41 +53,27 @@ class OrderAdaptor
             }
         }
 
-        return [
-            "customer" => [
-                "vendor_customer_id" => (int) $order->get_customer_id(),
-                "first_name" =>  $order->get_shipping_first_name() ?: ($user ? $user->first_name : ''),
-                "last_name" => $order->get_shipping_last_name() ?: ($user ? $user->last_name : ''),
-                "email" => $order->get_billing_email(),
-                "language" => $this->mapLocaleToLanguage($user->get_locale()),
-                "marketing_consent" => null, // TODO: Unknown by default, needs a plugin
-                "total_orders" => count($allCustomerOrders),
-                "tags" => [], // TODO: Tagging isn't native, it's provided by plugins
-                "total_spent" => array_sum(array_map(function ($order) {
-                    return $order->get_total();
-                }, $allCustomerOrders)),
-            ],
-            "order" => [
-                "id" => (string) $order->get_id(),
-                "number" => $order->get_order_number(),
-                "created_at" => $order->get_date_created() ? $order->get_date_created()->format('Y-m-d H:i:s') : date('Y-m-d H:i:s'),
-                "total_amount" => (float) $order->get_total(),
-                "total_items" => (int) $order->get_item_count(),
-                "billing_country" => (string) $order->get_billing_country(),
-                "billing_postcode" => (string) $order->get_billing_postcode(),
-                "billing_city" => (string) $order->get_billing_city(),
-                "shipping_country" => (string) $order->get_shipping_country(),
-                "shipping_postcode" => (string) $order->get_shipping_postcode(),
-                "shipping_city" => (string) $order->get_shipping_city(),
-                "currency" => (string) $order->get_currency(),
-                "gift_message" => '', // TODO: Gift message isn't native, it's provided by plugins.
-                "skus" => $skus,
-                "product_titles" => $titles,
-                "promo_codes" => $order->get_coupon_codes(),
-                "is_subscription_reorder" => false,
-            ],
-            "origin" => self::ORIGIN_WOOCOMMERCE,
-        ];
+        $order = new Order();
+        $order->setId((string) $order->get_id())
+            ->setNumber($order->get_order_number())
+            ->setCreatedAt($order->get_date_created() ? $order->get_date_created()->format('Y-m-d H:i:s') : date('Y-m-d H:i:s'))
+            ->setTotalAmount((float) $order->get_total())
+            ->setTotalItems((int) $order->get_item_count())
+            ->setCurrency((string) $order->get_currency())
+            ->setBillingCountry((string) $order->get_billing_country())
+            ->setBillingCity((string) $order->get_billing_city())
+            ->setBillingPostcode((string) $order->get_billing_postcode())
+            ->setShippingCountry((string) $order->get_shipping_country())
+            ->setShippingCity((string) $order->get_shipping_city())
+            ->setShippingPostcode((string) $order->get_shipping_postcode())
+            ->setSkus($skus)
+            ->setProductTitles($titles)
+            ->setPromoCodes($order->get_coupon_codes());
+            // TODO: unknown by default, these need plugins
+            //  ->isSubscriptionReorder(false)
+            //  ->setGiftMessage('')
+
+        return $order;
     }
 
     private function mapLocaleToLanguage(string $locale)

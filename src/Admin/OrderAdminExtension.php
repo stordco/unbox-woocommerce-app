@@ -8,7 +8,8 @@
 
 namespace PennyBlackWoo\Admin;
 
-use PennyBlackWoo\Api\OrderTransmitter;
+use PennyBlackWoo\Factory\OrderTransmitterFactory;
+use PennyBlackWoo\Factory\PrintRequesterFactory;
 use PennyBlackWoo\PennyBlackPlugin;
 
 defined( 'ABSPATH' ) || exit;
@@ -49,13 +50,13 @@ class OrderAdminExtension
 
     public static function sendOrder($order)
     {
-        $orderTransmitter = new OrderTransmitter();
+        $orderTransmitter = OrderTransmitterFactory::create();
         $orderTransmitter->transmitOrder($order);
     }
 
     public static function printOrder($order)
     {
-        $printRequester = new PrintRequester();
+        $printRequester = PrintRequesterFactory::create();
         $printRequester->print($order);
 
         // TODO: Add an admin notice to show the result?
@@ -85,4 +86,3 @@ class OrderAdminExtension
         }
     }
 }
-

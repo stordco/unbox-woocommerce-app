@@ -9,7 +9,7 @@
 namespace PennyBlackWoo\Admin;
 
 use PennyBlack\Exception\PennyBlackException;
-use PennyBlackWoo\Api\ClientFactory;
+use PennyBlackWoo\Factory\ApiFactory;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -151,9 +151,8 @@ class Settings
      */
     public static function install()
     {
-        $clientFactory = new ClientFactory();
-        $api = $clientFactory->getApiClient();
+        $api = ApiFactory::create();
         $hostname = parse_url(\get_site_url(), PHP_URL_HOST );
-        $api->install($hostname);
+        $api->installStore($hostname);
     }
 }
