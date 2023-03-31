@@ -14,3 +14,13 @@ This plugin integrates Woocommerce to Penny Black, to provide the data for, and 
   * Set the API key that received from Penny Black support
   * Enable order transmission
   * If you fulfil your own orders through Woocommerce then enable the order admin extensions.
+
+## Development
+
+### Releasing a new version of the plugin
+
+* If a new version of the SDK is being used remember to update the version in `composer.json`, and run `composer update`.
+* Bump the version number in:
+  * `woocommerce-pennyblack.php`
+  * `composer.json`
+* Create a new release on GitHub, with the version number as the tag, and the version number as the title.
