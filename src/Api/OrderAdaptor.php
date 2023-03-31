@@ -40,12 +40,12 @@ class OrderAdaptor
         return $customer;
     }
 
-    public function adaptOrder(\WC_Order $order): Order
+    public function adaptOrder(\WC_Order $wc_order): Order
     {
         $skus = [];
         $titles = [];
         /** @var \WC_Order_Item $item */
-        foreach ($order->get_items() as $item) {
+        foreach ($wc_order->get_items() as $item) {
             $product = $item->get_product();
             if ($product) {
                 $skus[] = $product->get_sku();
@@ -54,21 +54,21 @@ class OrderAdaptor
         }
 
         $order = new Order();
-        $order->setId((string) $order->get_id())
-            ->setNumber($order->get_order_number())
-            ->setCreatedAt($order->get_date_created() ? $order->get_date_created()->format('Y-m-d H:i:s') : date('Y-m-d H:i:s'))
-            ->setTotalAmount((float) $order->get_total())
-            ->setTotalItems((int) $order->get_item_count())
-            ->setCurrency((string) $order->get_currency())
-            ->setBillingCountry((string) $order->get_billing_country())
-            ->setBillingCity((string) $order->get_billing_city())
-            ->setBillingPostcode((string) $order->get_billing_postcode())
-            ->setShippingCountry((string) $order->get_shipping_country())
-            ->setShippingCity((string) $order->get_shipping_city())
-            ->setShippingPostcode((string) $order->get_shipping_postcode())
+        $order->setId((string) $wc_order->get_id())
+            ->setNumber($wc_order->get_order_number())
+            ->setCreatedAt($wc_order->get_date_created() ? $wc_order->get_date_created() : new \DateTime())
+            ->setTotalAmount((float) $wc_order->get_total())
+            ->setTotalItems((int) $wc_order->get_item_count())
+            ->setCurrency((string) $wc_order->get_currency())
+            ->setBillingCountry((string) $wc_order->get_billing_country())
+            ->setBillingCity((string) $wc_order->get_billing_city())
+            ->setBillingPostcode((string) $wc_order->get_billing_postcode())
+            ->setShippingCountry((string) $wc_order->get_shipping_country())
+            ->setShippingCity((string) $wc_order->get_shipping_city())
+            ->setShippingPostcode((string) $wc_order->get_shipping_postcode())
             ->setSkus($skus)
             ->setProductTitles($titles)
-            ->setPromoCodes($order->get_coupon_codes());
+            ->setPromoCodes($wc_order->get_coupon_codes());
             // TODO: unknown by default, these need plugins
             //  ->isSubscriptionReorder(false)
             //  ->setGiftMessage('')
