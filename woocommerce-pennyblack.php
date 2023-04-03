@@ -11,7 +11,7 @@
  * Author URI: https://github.com/pennyblack-io/
  * WC requires at least: 7.1
  * WC tested up to: 7.3.0
- * Requires PHP: 7.0
+ * Requires PHP: 7.4
  * Version: 1.0.0
  */
 
@@ -24,4 +24,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 require_once( trailingslashit(__DIR__) . 'vendor/autoload.php' );
 
-add_action('init', PennyBlackPlugin::class . "::initialize");
+$pbPlugin = new PennyBlackPlugin();
+
+add_action('init', [$pbPlugin, "initialize"]);

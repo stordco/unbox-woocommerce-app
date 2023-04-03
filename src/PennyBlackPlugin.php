@@ -16,14 +16,18 @@ defined( 'ABSPATH' ) || exit;
 
 class PennyBlackPlugin
 {
-    public static function initialize()
+    public function initialize()
     {
-        Settings::register();
-        OrderHook::initialize();
+        $settings = new Settings();
+        $settings->register();
+
+        $orderHook = new OrderHook();
+        $orderHook->initialize();
 
         if (is_admin()) {
-            add_filter('plugin_action_links_woocommerce-pennyblack/woocommerce-pennyblack.php', PennyBlackPlugin::class . "::createSettingsLink");
-            OrderAdminExtension::initialize();
+            add_filter('plugin_action_links_woocommerce-pennyblack/woocommerce-pennyblack.php', [$this, "createSettingsLink"]);
+            $orderAdminExtension = new OrderAdminExtension();
+            $orderAdminExtension->initialize();
         }
     }
 

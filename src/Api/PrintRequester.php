@@ -13,9 +13,18 @@ class PrintRequester
         $this->api = $api;
     }
 
-    public function print(\WC_Order $order)
+    public function print(\WC_Order $order): string
     {
-        // TODO: More here...
-        $this->api->requestPrint($order->get_number());
+        return $this->api->requestPrint($order->get_order_number());
+    }
+
+    public function printBatch(array $orders): string
+    {
+        $response = $this->api->requestBatchPrint($orders);
+
+        if (isset($response['message'])) {
+            return $response['message'];
+        }
+        return print_r($response['message'], true);
     }
 }
