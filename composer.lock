@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2553e5020e4a9cc82fb450c4b698d0e",
+    "content-hash": "891895a6180015a6db8ebcf1c31f93fc",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -339,16 +339,16 @@
         },
         {
             "name": "pennyblack/php-sdk",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pennyblack-io/php-sdk.git",
-                "reference": "2458cb20f494998cfb9f386ce13310205cf3b906"
+                "reference": "27780e4aa5e46804269040b391e74ad99dddafdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/2458cb20f494998cfb9f386ce13310205cf3b906",
-                "reference": "2458cb20f494998cfb9f386ce13310205cf3b906",
+                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/27780e4aa5e46804269040b391e74ad99dddafdf",
+                "reference": "27780e4aa5e46804269040b391e74ad99dddafdf",
                 "shasum": ""
             },
             "require": {
@@ -400,10 +400,10 @@
             ],
             "description": "Penny Black PHP SDK",
             "support": {
-                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.0.1",
+                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.1.0",
                 "issues": "https://github.com/pennyblack-io/php-sdk/issues"
             },
-            "time": "2023-03-31T13:11:04+00:00"
+            "time": "2023-04-03T06:00:25+00:00"
         },
         {
             "name": "psr/http-client",

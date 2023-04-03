@@ -26,11 +26,11 @@ class Settings
     /**
      * Bootstraps the class and hooks required actions & filters.
      */
-    public static function register()
+    public function register()
     {
-        add_filter('woocommerce_settings_tabs_array', __CLASS__ . '::addSettingsTab', 50);
-        add_action('woocommerce_settings_tabs_settings_penny_black', __CLASS__ . '::renderSettingsTab');
-        add_action('woocommerce_update_options_settings_penny_black', __CLASS__ . '::updateSettings');
+        add_filter('woocommerce_settings_tabs_array', [$this, 'addSettingsTab'], 50);
+        add_action('woocommerce_settings_tabs_settings_penny_black', [$this, 'renderSettingsTab']);
+        add_action('woocommerce_update_options_settings_penny_black', [$this, 'updateSettings']);
     }
 
     /**
@@ -38,7 +38,7 @@ class Settings
      *
      * @return array $settings_tabs Array of WooCommerce setting tabs & their labels
      */
-    public static function addSettingsTab($settings_tabs)
+    public function addSettingsTab($settings_tabs)
     {
         $settings_tabs['settings_penny_black'] = 'Penny Black';
 
@@ -51,7 +51,7 @@ class Settings
      * @see woocommerce_admin_fields() function.
      * @return array Array of settings
      */
-    public static function getSettings()
+    public function getSettings()
     {
         $settings = array(
             'pb_section_general' => array(
@@ -99,37 +99,34 @@ class Settings
 
     /**
      * Uses the WooCommerce admin fields API to output settings via the @see woocommerce_admin_fields() function.
-     *
-     * @uses woocommerce_admin_fields()
-     * @uses self::get_settings()
      */
-    public static function renderSettingsTab()
+    public function renderSettingsTab()
     {
-        woocommerce_admin_fields(self::getSettings());
+        woocommerce_admin_fields($this->getSettings());
     }
 
     /**
      * Persists the settings updated to wp options, validating the API key and disabling transmit if invalid
      */
-    public static function updateSettings()
+    public function updateSettings()
     {
-        woocommerce_update_options(self::getSettings());
+        woocommerce_update_options($this->getSettings());
 
         $newApiKey = \WC_Admin_Settings::get_option(self::FIELD_API_KEY);
 
         if ($newApiKey) {
             try {
-                self::install();
+                $this->install();
             } catch (PennyBlackException $e) {
                 \WC_Admin_Settings::add_error($e->getMessage());
-                self::disableTransmitIfEnabled();
+                $this->disableTransmitIfEnabled();
             }
         } else {
-            self::disableTransmitIfEnabled();
+            $this->disableTransmitIfEnabled();
         }
     }
 
-    public static function disableTransmitIfEnabled()
+    public function disableTransmitIfEnabled()
     {
         $transmitEnabled = \WC_Admin_Settings::get_option(self::FIELD_ENABLE_TRANSMIT);
 
@@ -137,7 +134,7 @@ class Settings
             return;
         }
 
-        $allSettings = self::getSettings();
+        $allSettings = $this->getSettings();
         $justTransmit = array_filter($allSettings, function ($setting) {
             return $setting['id'] === self::FIELD_ENABLE_TRANSMIT;
         });
@@ -149,7 +146,7 @@ class Settings
     /**
      * @throws PennyBlackException
      */
-    public static function install()
+    public function install()
     {
         $api = ApiFactory::create();
         $hostname = parse_url(\get_site_url(), PHP_URL_HOST );

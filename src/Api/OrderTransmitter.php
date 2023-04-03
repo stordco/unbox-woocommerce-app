@@ -41,7 +41,9 @@ class OrderTransmitter
                 self::STATUS_META_KEY,
                 "ERROR transmitting at " . $now->format('d/m/Y H:i:s') . ". Details: " . $e->getMessage()
             );
+            return $e->getMessage();
         }
+        return '';
     }
 
     public function hasAlreadyBeenTransmitted(\WC_Order $order)

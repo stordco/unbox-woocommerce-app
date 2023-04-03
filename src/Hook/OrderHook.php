@@ -11,13 +11,12 @@ namespace PennyBlackWoo\Hook;
 use PennyBlackWoo\Admin\Settings;
 use PennyBlackWoo\Api\OrderTransmitter;
 use PennyBlackWoo\Factory\OrderTransmitterFactory;
-use PennyBlackWoo\Factory\PrintRequesterFactory;
 
 defined( 'ABSPATH' ) || exit;
 
 class OrderHook
 {
-    public static function initialize()
+    public function initialize()
     {
         /*
          * Ensure every order is sent.
@@ -29,12 +28,12 @@ class OrderHook
          * The trade-off is better this way than not having order info or not having a PDF generated ready for
          * the fulfilment flow
          */
-        add_action('woocommerce_order_status_pending', __CLASS__ . '::transmitToPennyBlack', 1);
-        add_action('woocommerce_order_status_on-hold', __CLASS__ . '::transmitToPennyBlack', 1);
-        add_action('woocommerce_order_status_processing', __CLASS__ . '::transmitToPennyBlack', 1);
+        add_action('woocommerce_order_status_pending', [$this, 'transmitToPennyBlack'], 1);
+        add_action('woocommerce_order_status_on-hold', [$this, 'transmitToPennyBlack'], 1);
+        add_action('woocommerce_order_status_processing', [$this, 'transmitToPennyBlack'], 1);
     }
 
-    public static function transmitToPennyBlack($orderId)
+    public function transmitToPennyBlack($orderId)
     {
         $isTransmitEnabled = \WC_Admin_Settings::get_option(Settings::FIELD_ENABLE_TRANSMIT);
 
@@ -58,15 +57,5 @@ class OrderHook
                 "ERROR - unexpected, please contact Penny Black support. Details: " . $e->getMessage()
             );
         }
-    }
-
-    public static function triggerPrintRequest($orderId)
-    {
-        // TODO:
-
-        $order = wc_get_order($orderId);
-
-        $printRequester = PrintRequesterFactory::create();
-        $printRequester->print($order);
     }
 }

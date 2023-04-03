@@ -18,24 +18,34 @@ class OrderAdaptor
 
     public function adaptCustomer(\WC_Order $order): Customer
     {
-        /** @var \WC_User $user */
-        $user = $order->get_user();
-
-        $allCustomerOrders = $this->getCustomerOrderHistory($order->get_customer_id());
+        if ($order->get_billing_email()) {
+            $allCustomerOrders = $this->getCustomerOrderHistory($order->get_billing_email());
+            $orderCount = count($allCustomerOrders);
+            $totalSpent = array_sum(array_map(function ($pastOrder) {
+                return $pastOrder->get_total();
+            }, $allCustomerOrders));
+        } else {
+            // Just in case we can't get a billing email, assume it's the first order
+            $orderCount = 1;
+            $totalSpent = $order->get_total();
+        }
+        $totalSpent = round((float)$totalSpent, 2);
 
         $customer = new Customer();
         $customer->setVendorCustomerId((string) $order->get_customer_id())
-            ->setFirstName($order->get_shipping_first_name() ?: ($user ? $user->first_name : ''))
-            ->setLastName($order->get_shipping_last_name() ?: ($user ? $user->last_name : ''))
+            ->setFirstName($order->get_shipping_first_name() ?: $order->get_billing_first_name())
+            ->setLastName($order->get_shipping_last_name() ?: $order->get_billing_first_name())
             ->setEmail($order->get_billing_email())
-            ->setLanguage($this->mapLocaleToLanguage($user->get_locale()))
-            // TODO: Unknown by default, these need plugins
-            // ->setMarketingConsent(null)
-            // ->setTags([])
-            ->setTotalOrders(count($allCustomerOrders))
-            ->setTotalSpent(array_sum(array_map(function ($order) {
-                return $order->get_total();
-            }, $allCustomerOrders)));
+            ->setTotalOrders($orderCount)
+            ->setTotalSpent($totalSpent);
+
+        // TODO: Additional fields we'll want to add by configuration in future
+        // $customer->setMarketingConsent(null)
+        // $customer->setTags([])
+
+        // This won't be of much use since many/most customers will be guest customers.
+        // If we want to segment on language we'll want it for all users and it will come from a multilingual plugin
+        // $customer->setLanguage($this->mapLocaleToLanguage($user->get_locale()));
 
         return $customer;
     }
@@ -85,10 +95,15 @@ class OrderAdaptor
         return '';
     }
 
-    private function getCustomerOrderHistory(int $customerId)
+    /**
+     * Many orders will be by guest customers.
+     * The only way of accurately consolidating a list of past orders
+     * is to use the billing email.
+     */
+    private function getCustomerOrderHistory(string $billingEmail)
     {
         return wc_get_orders([
-            'customer_id' => $customerId,
+            'billing_email' => $billingEmail,
             'post_status' => self::VALID_HISTORY_ORDER_STATES,
             'post_type' => 'shop_order',
         ]);
