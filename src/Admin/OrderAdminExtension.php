@@ -161,7 +161,7 @@ class OrderAdminExtension
 
         $order_id = isset($post->ID) ? intval($post->ID) : '';
 
-        if (!empty($order_id)) {
+        if ($order_id) {
             return wc_get_order($order_id);
         }
     }
