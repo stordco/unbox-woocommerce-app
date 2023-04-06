@@ -73,7 +73,11 @@ class OrderAdminExtension
 
     public function addBatchPrintBulkOption($actions)
     {
-        $actions['penny_black_batch_print'] = 'Print via Penny Black';
+        $orderAdminEnabled = \WC_Admin_Settings::get_option(Settings::FIELD_ENABLE_ORDER_EXTENSIONS);
+
+        if ($orderAdminEnabled && $orderAdminEnabled !== 'no') {
+            $actions['penny_black_batch_print'] = 'Print via Penny Black';
+        }
 
         return $actions;
     }
