@@ -4,9 +4,9 @@
  * @date 17/03/2023
  *
  * @wordpress-plugin
- * Plugin Name: Penny Black Integration for WooCommerce
+ * Plugin Name: Penny Black integration for WooCommerce
  * Plugin Uri: https://github.com/pennyblack-io/woocommerce-pennyblack
- * Description: Configure your integration with Penny Black to transmit orders and trigger your personalised prints.
+ * Description: Integrate with Penny Black to share data to power personalised printing.
  * Author: Penny Black
  * Author URI: https://github.com/pennyblack-io/
  * WC requires at least: 7.1
