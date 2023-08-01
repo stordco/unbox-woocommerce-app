@@ -22,6 +22,7 @@ class Settings
     const FIELD_ENABLE_TRANSMIT = 'pb_enable_transmit';
     const FIELD_ENVIRONMENT = 'pb_environment';
     const FIELD_ENABLE_ORDER_EXTENSIONS = 'pb_enable_order_extensions';
+    const FIELD_GIFT_MESSAGE_META_FIELD = 'pb_gift_message_meta_field';
 
     /**
      * Bootstraps the class and hooks required actions & filters.
@@ -76,6 +77,12 @@ class Settings
                 'type' => 'text',
                 'desc' => 'Contact Penny Black support for your API key',
             ),
+            self::FIELD_GIFT_MESSAGE_META_FIELD => array(
+                'id' => self::FIELD_GIFT_MESSAGE_META_FIELD,
+                'name' => 'Gift message meta field name',
+                'type' => 'text',
+                'desc' => 'If your are capturing customer gift messages as order meta values (attributes), enter the meta key/field name',
+            ),
             self::FIELD_ENABLE_TRANSMIT => array(
                 'id' => self::FIELD_ENABLE_TRANSMIT,
                 'name' => 'Enable order transmission',
@@ -88,9 +95,9 @@ class Settings
                 'type' => 'checkbox',
                 'desc' => 'Add actions to the Woocommerce order admin pages to trigger prints',
             ),
-            'pb_section_printing_end' => array(
+            'pb_section_general_end' => array(
                 'type' => 'sectionend',
-                'id' => 'pb_section_printing',
+                'id' => 'pb_section_general',
             ),
         );
 
