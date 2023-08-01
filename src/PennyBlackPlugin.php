@@ -32,14 +32,6 @@ class PennyBlackPlugin
     }
 
     /**
-     * @return string
-     */
-    public static function getViewsPath()
-    {
-        return __DIR__ . '/../inc/views/';
-    }
-
-    /**
      * A settings link on the left-hand side of the plugins list entry,
      * to take you to the WC settings tab
      */
