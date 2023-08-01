@@ -67,8 +67,7 @@ class OrderAdminExtension
     {
         $order = $this->getCurrentOrder();
 
-        $template_path = PennyBlackPlugin::getViewsPath() . 'html-order-metabox.php';
-        include_once $template_path;
+        include_once __DIR__ . '/../../inc/views/html-order-metabox.php';
     }
 
     public function addBatchPrintBulkOption($actions)
@@ -118,31 +117,31 @@ class OrderAdminExtension
         }
 
         if (!count($orderNumbers)) {
-            return add_query_arg([
+            return esc_url(add_query_arg([
                 'pb_msg_type' => 'warning',
                 'pb_msg' => 'Please select some orders'
-            ], $redirectTo);
+            ], $redirectTo));
         }
 
         $printRequester = PrintRequesterFactory::create();
         try {
             $message = "Penny Black: " . $printRequester->printBatch($orderNumbers);
         } catch (PennyBlackException $e) {
-            return add_query_arg([
+            return esc_url(add_query_arg([
                 'pb_msg_type' => 'error',
                 'pb_msg' => $e->getMessage()
-            ], $redirectTo);
+            ], $redirectTo));
         }
 
-        return add_query_arg([
+        return esc_url(add_query_arg([
             'pb_msg_type' => 'success',
             'pb_msg' => $message
-        ], $redirectTo);
+        ], $redirectTo));
     }
 
     public function addNotificationQueryVars($location)
     {
-        return add_query_arg(['pb_msg_type' => $this->messageType, 'pb_msg' => $this->message], $location);
+        return esc_url(add_query_arg(['pb_msg_type' => $this->messageType, 'pb_msg' => $this->message], $location));
     }
 
     public function addNotification()
@@ -151,8 +150,8 @@ class OrderAdminExtension
             return;
         }
 
-        $messageType = $_GET['pb_msg_type'];
-        $message = $_GET['pb_msg'];
+        $messageType = sanitize_text_field($_GET['pb_msg_type']);
+        $message = sanitize_text_field($_GET['pb_msg']);
 
         $class = 'notice is-dismissible notice-' . $messageType;
 
