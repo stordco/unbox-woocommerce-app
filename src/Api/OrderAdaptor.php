@@ -4,6 +4,7 @@ namespace PennyBlackWoo\Api;
 
 use PennyBlack\Model\Customer;
 use PennyBlack\Model\Order;
+use PennyBlackWoo\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -81,7 +82,12 @@ class OrderAdaptor
             ->setPromoCodes($wc_order->get_coupon_codes());
             // TODO: unknown by default, these need plugins
             //  ->isSubscriptionReorder(false)
-            //  ->setGiftMessage('')
+
+        $giftMessageMetaField = \WC_Admin_Settings::get_option(Settings::FIELD_GIFT_MESSAGE_META_FIELD);
+
+        if ($giftMessageMetaField) {
+            $order->setGiftMessage(get_post_meta($wc_order->get_id(), $giftMessageMetaField, true));
+        }
 
         return $order;
     }
