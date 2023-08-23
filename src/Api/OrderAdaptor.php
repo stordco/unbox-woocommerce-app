@@ -20,7 +20,7 @@ class OrderAdaptor
     public function adaptCustomer(\WC_Order $order): Customer
     {
         if ($order->get_billing_email()) {
-            $allCustomerOrders = $this->getCustomerOrderHistory($order->get_billing_email());
+            $allCustomerOrders = $this->getCustomerOrderHistory($order);
             $orderCount = count($allCustomerOrders);
             $totalSpent = array_sum(array_map(function ($pastOrder) {
                 return $pastOrder->get_total();
@@ -106,12 +106,23 @@ class OrderAdaptor
      * The only way of accurately consolidating a list of past orders
      * is to use the billing email.
      */
-    private function getCustomerOrderHistory(string $billingEmail)
+    private function getCustomerOrderHistory(\WC_Order $order)
     {
-        return wc_get_orders([
-            'billing_email' => $billingEmail,
+        $history = wc_get_orders([
+            'billing_email' => $order->get_billing_email(),
             'post_status' => self::VALID_HISTORY_ORDER_STATES,
             'post_type' => 'shop_order',
         ]);
+
+        // Ensure the current order is in the history, in case the above doesn't
+        // find it due to custom order status flows
+        foreach ($history as $pastOrder) {
+            if ($pastOrder->get_id() === $order->get_id()) {
+                return $history;
+            }
+        }
+        $history[] = $order;
+
+        return $history;
     }
 }
