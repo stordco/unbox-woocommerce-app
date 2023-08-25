@@ -23,33 +23,42 @@ class OrderTransmitter
 
     public function transmitOrder(\WC_Order $order)
     {
-        $now = new \DateTime();
         try {
+            $this->saveStatus($order->get_id(), 'Transmitting... ' . $this->getNowTime());
             $this->api->sendOrder(
                 $this->orderAdaptor->adaptOrder($order),
                 $this->orderAdaptor->adaptCustomer($order),
                 self::ORIGIN_WOOCOMMERCE
             );
-            update_post_meta(
-                $order->get_id(),
-                self::STATUS_META_KEY,
-                "Transmitted at " . $now->format('d/m/Y H:i:s')
-            );
+            $this->saveStatus($order->get_id(), 'Transmitted at ' . $this->getNowTime());
         } catch (PennyBlackException $e) {
-            update_post_meta(
+            $this->saveStatus(
                 $order->get_id(),
-                self::STATUS_META_KEY,
-                "ERROR transmitting at " . $now->format('d/m/Y H:i:s') . ". Details: " . $e->getMessage()
+                'ERROR transmitting at ' . $this->getNowTime() . '. Details: ' . $e->getMessage()
             );
             return $e->getMessage();
         }
         return '';
     }
 
+    /**
+     * returns true if currently transmitting or has been transmitted successfully
+     */
     public function hasAlreadyBeenTransmitted(\WC_Order $order)
     {
         $status = get_post_meta($order->get_id(), self::STATUS_META_KEY, true) !== '';
 
-        return substr($status, 0, 11) === 'Transmitted';
+        return substr($status, 0, 9) === 'Transmitt';
+    }
+
+    private function saveStatus($orderId, $status)
+    {
+        update_post_meta($orderId, self::STATUS_META_KEY, $status);
+    }
+
+    private function getNowTime()
+    {
+        $now = new \DateTime();
+        return $now->format('d/m/Y H:i:s');
     }
 }
