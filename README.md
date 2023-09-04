@@ -19,8 +19,9 @@ This plugin integrates Woocommerce to Penny Black, to provide the data for, and 
 
 ### Releasing a new version of the plugin
 
-* If a new version of the SDK is being used remember to update the version in `composer.json`, and run `composer update`.
-* Bump the version number in:
+* If a new version of the Penny Black PHP SDK is being used remember to update its version number in `composer.json`, and run `composer update`.
+* Bump the version number in the following 3 files:
   * `woocommerce-pennyblack.php`
+  * `readme.txt`
   * `composer.json`
 * Create a new release on GitHub, with the version number as the tag, and the version number as the title.
