@@ -16,6 +16,8 @@ defined( 'ABSPATH' ) || exit;
 
 class PennyBlackPlugin
 {
+    private static string $VERSION;
+
     public function initialize()
     {
         $settings = new Settings();
@@ -42,5 +44,14 @@ class PennyBlackPlugin
         array_unshift($links, $settingsLink);
 
         return $links;
+    }
+
+    public static function getVersion(): string
+    {
+        if (!isset(self::$VERSION)) {
+            $pluginData = get_file_data(__DIR__ . '/../woocommerce-pennyblack.php', array('Version' => 'Version'), false);
+            self::$VERSION = $pluginData['Version'];
+        }
+        return self::$VERSION;
     }
 }

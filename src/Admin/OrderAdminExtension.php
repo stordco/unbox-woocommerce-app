@@ -117,31 +117,31 @@ class OrderAdminExtension
         }
 
         if (!count($orderNumbers)) {
-            return esc_url(add_query_arg([
-                'pb_msg_type' => 'warning',
-                'pb_msg' => 'Please select some orders'
-            ], $redirectTo));
+            $this->message = 'Please select some orders';
+            $this->messageType = 'warning';
+            return $this->addNotificationQueryVars($redirectTo);
         }
 
         $printRequester = PrintRequesterFactory::create();
         try {
             $message = "Penny Black: " . $printRequester->printBatch($orderNumbers);
         } catch (PennyBlackException $e) {
-            return esc_url(add_query_arg([
-                'pb_msg_type' => 'error',
-                'pb_msg' => $e->getMessage()
-            ], $redirectTo));
+            $this->message = $e->getMessage();
+            $this->messageType = 'error';
+            return $this->addNotificationQueryVars($redirectTo);
         }
 
-        return esc_url(add_query_arg([
-            'pb_msg_type' => 'success',
-            'pb_msg' => $message
-        ], $redirectTo));
+        $this->message = $message;
+        $this->messageType = 'success';
+        return $this->addNotificationQueryVars($redirectTo);
     }
 
     public function addNotificationQueryVars($location)
     {
-        return esc_url(add_query_arg(['pb_msg_type' => $this->messageType, 'pb_msg' => $this->message], $location));
+        return add_query_arg(
+            ['pb_msg_type' => rawurlencode($this->messageType), 'pb_msg' => rawurlencode($this->message)],
+            $location
+        );
     }
 
     public function addNotification()
