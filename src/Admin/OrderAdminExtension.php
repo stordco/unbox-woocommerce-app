@@ -42,16 +42,15 @@ class OrderAdminExtension
         $order = $this->getCurrentOrder();
 
         if ($order) {
-            $status = $order->get_meta(OrderTransmitter::STATUS_META_KEY);
-
-            if (!$status || substr($status, 0, 5) === 'ERROR') {
+            $orderTransmitter = OrderTransmitterFactory::create();
+            if (!$orderTransmitter->hasAlreadyBeenTransmitted($order)) {
                 $actions['penny_black_send'] = 'Send to Penny Black';
-            } else {
-                $orderAdminEnabled = \WC_Admin_Settings::get_option(Settings::FIELD_ENABLE_ORDER_EXTENSIONS);
+            }
 
-                if ($orderAdminEnabled && $orderAdminEnabled !== 'no') {
-                    $actions['penny_black_print'] = 'Print via Penny Black';
-                }
+            $orderAdminEnabled = \WC_Admin_Settings::get_option(Settings::FIELD_ENABLE_ORDER_EXTENSIONS);
+
+            if ($orderAdminEnabled && $orderAdminEnabled !== 'no') {
+                $actions['penny_black_print'] = 'Print via Penny Black';
             }
         }
 
