@@ -46,7 +46,7 @@ class OrderTransmitter
      */
     public function hasAlreadyBeenTransmitted(\WC_Order $order)
     {
-        $status = get_post_meta($order->get_id(), self::STATUS_META_KEY, true) !== '';
+        $status = get_post_meta($order->get_id(), self::STATUS_META_KEY, true);
 
         return substr($status, 0, 9) === 'Transmitt';
     }

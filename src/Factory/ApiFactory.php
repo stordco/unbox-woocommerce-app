@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use PennyBlack\Api;
 use PennyBlackWoo\Admin\Settings;
 use PennyBlackWoo\Exception\MissingApiConfigException;
+use PennyBlackWoo\PennyBlackPlugin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,6 +30,6 @@ class ApiFactory
         $streamFactory = new HttpFactory();
         $requestFactory = new HttpFactory();
 
-        return new Api($httpClient, $requestFactory, $streamFactory, $apiKey, $isTest);
+        return new Api($httpClient, $requestFactory, $streamFactory, $apiKey, $isTest, PennyBlackPlugin::getVersion());
     }
 }
