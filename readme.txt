@@ -3,7 +3,7 @@ Contributors:
 Tags: woocommerce, Woo, marketing, prints, inserts, personalisation, pennyblack, penny black, analytics
 Requires at least: 6.0
 Tested up to: 6.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.4
 License: MIT
 License URI: https://github.com/pennyblack-io/woocommerce-pennyblack/blob/main/LICENSE.md
@@ -18,7 +18,9 @@ The Woocommerce plugin integrates your store with Penny Black to transmit order 
 
 In addition to transmission you can use the Woocommerce orders admin to trigger prints. Penny Black inserts are usually printed at the point of pack in your fulfilment, and if you handle your own packing then you can trigger your prints directly through the Woocommerce admin
 
-The plugin requires a Penny Black account to send orders and trigger prints. [Find out more at https://pennyblack.io](https://pennyblack.io)
+The plugin requires a Penny Black account to send orders and trigger prints. Find out more at [https://pennyblack.io](https://pennyblack.io).
+
+Once installed, use the Penny Black tab on the Woocommerce settings page to configure the plugin for use.
 
 == Screenshots ==
 
