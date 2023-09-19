@@ -4,10 +4,17 @@ This plugin integrates Woocommerce to Penny Black, to provide the data for, and 
 
 ## Installation
 
+### Quick Install 
+
+The easiest way to install this plugin is to search for it within your Wordpress system, or download the latest from the [Wordpress Plugin Directory](https://wordpress.org/plugins/penny-black/).
+
+
+### Manual build and install
+
 * Download the latest release from the [releases page](https://github.com/pennyblack-io/woocommerce-pennyblack/releases)
-* Extract the zip file and rename the folder to `woocommerce-pennyblack`, removing the version number component.
+* Extract the zip file and rename the folder to `penny-black`, removing the version number component.
 * Inside the folder run `composer install --no-dev`.
-* Create a zip file from the `woocommerce-pennyblack` folder.
+* Create a zip file from the `penny-black` folder.
 * Upload the folder to your WordPress site, either manually to the plugins directory, or via the admin interface on the plugins page.
 * Install the plugin from the WordPress admin panel.
 * Follow the settings link on the plugins page to configure the plugin:
@@ -21,7 +28,7 @@ This plugin integrates Woocommerce to Penny Black, to provide the data for, and 
 
 * If a new version of the Penny Black PHP SDK is being used remember to update its version number in `composer.json`, and run `composer update`.
 * Bump the version number in the following 3 files:
-  * `woocommerce-pennyblack.php`
+  * `penny-black.php`
   * `readme.txt`
   * `composer.json`
 * Create a new release on GitHub, with the version number as the tag, and the version number as the title.

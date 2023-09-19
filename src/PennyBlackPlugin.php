@@ -27,7 +27,7 @@ class PennyBlackPlugin
         $orderHook->initialize();
 
         if (is_admin()) {
-            add_filter('plugin_action_links_woocommerce-pennyblack/woocommerce-pennyblack.php', [$this, "createSettingsLink"]);
+            add_filter('plugin_action_links_penny-black/penny-black.php', [$this, "createSettingsLink"]);
             $orderAdminExtension = new OrderAdminExtension();
             $orderAdminExtension->initialize();
         }
@@ -49,7 +49,7 @@ class PennyBlackPlugin
     public static function getVersion(): string
     {
         if (!isset(self::$VERSION)) {
-            $pluginData = get_file_data(__DIR__ . '/../woocommerce-pennyblack.php', array('Version' => 'Version'), false);
+            $pluginData = get_file_data(__DIR__ . '/../penny-black.php', array('Version' => 'Version'), false);
             self::$VERSION = $pluginData['Version'];
         }
         return self::$VERSION;
