@@ -1,0 +1,12 @@
+# File for defining what should be ignored when auto-deploying to wp.org SVN
+# This is required to override .gitignore because this excludes the vendor folder
+/.wordpress-org
+/.git
+/.github
+.distignore
+.gitignore
+
+# The following appear to be generated during the actions
+DOCKER_ENV
+docker_tag
+output.log
