@@ -14,7 +14,7 @@ jobs:
         uses: php-actions/composer@v6
         with:
           php_version: "7.4"
-          command: "composer install --no-dev"
+          args: "--no-dev"
 
       - name: WordPress Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
