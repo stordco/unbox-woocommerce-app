@@ -25,3 +25,8 @@ This plugin integrates Woocommerce to Penny Black, to provide the data for, and 
   * `readme.txt`
   * `composer.json`
 * Create a new release on GitHub, with the version number as the tag, and the version number as the title.
+* On publishing a new tag a GitHub action will automatically deploy the updated version to the WordPress plugin repository. See our page [here](https://wordpress.org/plugins/penny-black/). 
+
+### Releasing updated assets (screenshots, banners logos) to WP.org
+
+There is a GitHub action listening for changes to these files. Any commit to `main` that contains _only_ changes to `readme.txt` and/or `.wordpress-org/` folders will trigger a push to update them on WP.org in their respective folders
