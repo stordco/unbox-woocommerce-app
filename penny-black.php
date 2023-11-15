@@ -10,9 +10,9 @@
  * Author: Penny Black
  * Author URI: https://github.com/pennyblack-io/
  * WC requires at least: 7.1
- * WC tested up to: 7.3.0
+ * WC tested up to: 8.2.2
  * Requires PHP: 7.4
- * Version: 1.2.3
+ * Version: 1.2.4
  */
 
 use PennyBlackWoo\PennyBlackPlugin;
