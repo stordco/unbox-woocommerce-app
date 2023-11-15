@@ -27,7 +27,7 @@ The easiest way to install this plugin is to search for it within your Wordpress
 ### Releasing a new version of the plugin
 
 * If a new version of the Penny Black PHP SDK is being used remember to update its version number in `composer.json`, and run `composer update`.
-* Bump the version number in the following 3 files:
+* Bump the plugin version number in the following 3 files:
   * `penny-black.php`
   * `readme.txt`
   * `composer.json`

@@ -2,7 +2,7 @@
     "name": "pennyblack/woocommerce-pennyblack",
     "type": "wordpress-plugin",
     "description": "Woocommerce plugin to integrate Penny Black for transmitting orders and triggering personalise prints",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "license": "MIT",
     "authors": [
         {
