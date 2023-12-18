@@ -333,16 +333,16 @@
         },
         {
             "name": "pennyblack/php-sdk",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pennyblack-io/php-sdk.git",
-                "reference": "174b452cf36f49b90c8b5d56f6ef855b42229739"
+                "reference": "3e1d95f6c1360afeb0000b3d2633222c574c4409"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/174b452cf36f49b90c8b5d56f6ef855b42229739",
-                "reference": "174b452cf36f49b90c8b5d56f6ef855b42229739",
+                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/3e1d95f6c1360afeb0000b3d2633222c574c4409",
+                "reference": "3e1d95f6c1360afeb0000b3d2633222c574c4409",
                 "shasum": ""
             },
             "require": {
@@ -357,8 +357,8 @@
             "require-dev": {
                 "guzzlehttp/guzzle": "^7.5",
                 "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "1.10.33",
-                "phpunit/phpunit": "8.5.33",
+                "phpstan/phpstan": "1.10.48",
+                "phpunit/phpunit": "8.5.36",
                 "squizlabs/php_codesniffer": "^3.7"
             },
             "type": "library",
@@ -386,6 +386,9 @@
                     "./vendor/bin/phpmd ./src text ./phpmd.xml"
                 ]
             },
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Penny Black",
@@ -394,10 +397,10 @@
             ],
             "description": "Penny Black PHP SDK",
             "support": {
-                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.4.0",
+                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.4.1",
                 "issues": "https://github.com/pennyblack-io/php-sdk/issues"
             },
-            "time": "2023-09-06T10:21:38+00:00"
+            "time": "2023-12-14T09:19:44+00:00"
         },
         {
             "name": "psr/http-client",
