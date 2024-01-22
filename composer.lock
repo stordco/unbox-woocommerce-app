@@ -333,16 +333,16 @@
         },
         {
             "name": "pennyblack/php-sdk",
-            "version": "1.4.2",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pennyblack-io/php-sdk.git",
-                "reference": "8fa1b9983b6d96bed19cfc7d1543342d8f884568"
+                "reference": "686fc2838e7c4c9cac649fd710a43911ff9a7179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/8fa1b9983b6d96bed19cfc7d1543342d8f884568",
-                "reference": "8fa1b9983b6d96bed19cfc7d1543342d8f884568",
+                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/686fc2838e7c4c9cac649fd710a43911ff9a7179",
+                "reference": "686fc2838e7c4c9cac649fd710a43911ff9a7179",
                 "shasum": ""
             },
             "require": {
@@ -357,7 +357,7 @@
             "require-dev": {
                 "guzzlehttp/guzzle": "^7.5",
                 "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "1.10.50",
+                "phpstan/phpstan": "1.10.56",
                 "phpunit/phpunit": "8.5.36",
                 "squizlabs/php_codesniffer": "^3.7"
             },
@@ -397,10 +397,10 @@
             ],
             "description": "Penny Black PHP SDK",
             "support": {
-                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.4.2",
+                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.5.0",
                 "issues": "https://github.com/pennyblack-io/php-sdk/issues"
             },
-            "time": "2024-01-04T15:33:07+00:00"
+            "time": "2024-01-19T09:23:35+00:00"
         },
         {
             "name": "psr/http-client",
