@@ -1,9 +1,9 @@
 === Penny Black integration for WooCommerce ===
 Contributors: pennyblackengineers
-Tags: woocommerce, Woo, marketing, prints, inserts, personalisation, pennyblack, penny black, analytics
+Tags: woocommerce, prints, personalisation, pennyblack, penny black
 Requires at least: 6.0
 Tested up to: 6.5.0
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 7.4
 License: MIT
 License URI: https://github.com/pennyblack-io/woocommerce-pennyblack/blob/main/LICENSE.md
