@@ -12,7 +12,7 @@
  * WC requires at least: 7.1
  * WC tested up to: 8.2.2
  * Requires PHP: 7.4
- * Version: 1.2.5
+ * Version: 1.3.0
  */
 
 use PennyBlackWoo\PennyBlackPlugin;
