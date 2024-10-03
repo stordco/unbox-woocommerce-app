@@ -20,6 +20,7 @@ class Settings
 
     const FIELD_API_KEY = 'pb_api_key';
     const FIELD_ENABLE_TRANSMIT = 'pb_enable_transmit';
+    const FIELD_TRANSMIT_ON_STATUSES = 'pb_transmit_on_statuses';
     const FIELD_ENVIRONMENT = 'pb_environment';
     const FIELD_ENABLE_ORDER_EXTENSIONS = 'pb_enable_order_extensions';
     const FIELD_GIFT_MESSAGE_META_FIELD = 'pb_gift_message_meta_field';
@@ -88,6 +89,13 @@ class Settings
                 'name' => 'Enable order transmission',
                 'type' => 'checkbox',
                 'desc' => 'Automatically send orders to Penny Black',
+            ),
+            self::FIELD_TRANSMIT_ON_STATUSES => array(
+                'id' => self::FIELD_TRANSMIT_ON_STATUSES,
+                'name' => 'Transmit on order statuses',
+                'type' => 'multiselect',
+                'options' => \wc_get_order_statuses(),
+                'desc' => 'Select all the statuses that will trigger order transmission (default are Pending, On Hold and Processing)',
             ),
             self::FIELD_ENABLE_ORDER_EXTENSIONS => array(
                 'id' => self::FIELD_ENABLE_ORDER_EXTENSIONS,

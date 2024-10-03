@@ -21,16 +21,28 @@ class OrderHook
         /*
          * Ensure every order is sent.
          * Orders can arrive at different statuses, and we want to ensure we get the details as early as possible
-         * (but only once!)
+         * (but only once! we only transmit once, further attempts are ignored)
          * It's possible that with this slightly heavy-handed approach we will be lacking some order information
          * such as billing address, but we should have enough to do most segmentation and be able to print orders
          * instantly upon processing.
          * The trade-off is better this way than not having order info or not having a PDF generated ready for
          * the fulfilment flow
          */
-        add_action('woocommerce_order_status_pending', [$this, 'transmitToPennyBlack'], 1);
-        add_action('woocommerce_order_status_on-hold', [$this, 'transmitToPennyBlack'], 1);
-        add_action('woocommerce_order_status_processing', [$this, 'transmitToPennyBlack'], 1);
+        $statuses = \WC_Admin_Settings::get_option(Settings::FIELD_TRANSMIT_ON_STATUSES);
+
+        if ($statuses) {
+            foreach ($statuses as $status) {
+                if (substr($status, 0, 3) === 'wc-') {
+                    $status = substr($status, 3);
+                }
+                add_action('woocommerce_order_status_' . $status, [$this, 'transmitToPennyBlack'], 1);
+            }
+        } else {
+            // Default statuses to transmit on
+            add_action('woocommerce_order_status_pending', [$this, 'transmitToPennyBlack'], 1);
+            add_action('woocommerce_order_status_on-hold', [$this, 'transmitToPennyBlack'], 1);
+            add_action('woocommerce_order_status_processing', [$this, 'transmitToPennyBlack'], 1);
+        }
     }
 
     public function transmitToPennyBlack($orderId)
