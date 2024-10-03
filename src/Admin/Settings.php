@@ -95,7 +95,7 @@ class Settings
                 'name' => 'Transmit on order statuses',
                 'type' => 'multiselect',
                 'options' => \wc_get_order_statuses(),
-                'desc' => 'Ctrl-click to select the statuses that will trigger order transmission (default is Pending, On Hold and Processing)',
+                'desc' => 'Select all the statuses that will trigger order transmission (default are Pending, On Hold and Processing)',
             ),
             self::FIELD_ENABLE_ORDER_EXTENSIONS => array(
                 'id' => self::FIELD_ENABLE_ORDER_EXTENSIONS,
