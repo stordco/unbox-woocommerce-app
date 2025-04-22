@@ -2,7 +2,7 @@
 Contributors: pennyblackengineers
 Tags: woocommerce, prints, personalisation, pennyblack, penny black
 Requires at least: 6.0
-Tested up to: 6.5.0
+Tested up to: 6.8
 Stable tag: 1.3.1
 Requires PHP: 7.4
 License: MIT
