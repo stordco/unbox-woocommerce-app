@@ -11,7 +11,7 @@ Integrate with Penny Black to share data to power personalised printing.
 
 == Description ==
 
-Penny Black is now part of Stord! [https://www.stord.com/unbox](Explore what's next).
+Penny Black is now part of Stord! [https://www.stord.com/unbox](https://www.stord.com/unbox).
 
 Penny Black allows you to create personalised prints for you customers to elevate your customer experience and take advantage of the unboxing moment.
 Create visual campaigns, segment your customers and use your personalised prints for engagement, retention and upsell. Then use our analytics platform to track the performance of QR code scans and see your ROI.
