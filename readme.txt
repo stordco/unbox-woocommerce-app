@@ -6,7 +6,7 @@ Tested up to: 6.8
 Stable tag: 1.3.1
 Requires PHP: 7.4
 License: MIT
-License URI: https://github.com/pennyblack-io/woocommerce-pennyblack/blob/main/LICENSE.md
+License URI: https://github.com/stordco/woocommerce-pennyblack/blob/main/LICENSE.md
 Integrate with Penny Black to share data to power personalised printing.
 
 == Description ==
@@ -20,7 +20,7 @@ The Woocommerce plugin integrates your store with Penny Black to transmit order 
 
 In addition to transmission you can use the Woocommerce orders admin to trigger prints. Penny Black inserts are usually printed at the point of pack in your fulfilment, and if you handle your own packing then you can trigger your prints directly through the Woocommerce admin
 
-The plugin requires a Penny Black account to send orders and trigger prints. Find out more at [https://pennyblack.io](https://pennyblack.io).
+The plugin requires a Penny Black account to send orders and trigger prints. Find out more at [https://www.stord.com/unbox](https://www.stord.com/unbox).
 
 Once installed, use the Penny Black tab on the Woocommerce settings page to configure the plugin for use.
 
