@@ -1,0 +1,157 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+tone_instructions: >-
+  Be concise and professional. Use short bullets. No poems, jokes, or filler.
+  Flag bugs, regressions, security, accessibility, and repo convention gaps.
+  Do not restyle code that existing tooling already covers.
+early_access: false
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  high_level_summary_instructions: >-
+    Write 2-5 short bullets covering what changed and why. Skip file-by-file
+    lists. Mention risk or follow-up only when it matters.
+  poem: false
+  in_progress_fortune: false
+  review_status: true
+  review_details: false
+  collapse_walkthrough: true
+  changed_files_summary: true
+  sequence_diagrams: false
+  estimate_code_review_effort: false
+  assess_linked_issues: true
+  related_issues: false
+  related_prs: false
+  suggested_labels: true
+  auto_apply_labels: false
+  labeling_instructions:
+    - label: enhancement
+      instructions: Apply when the PR adds user-facing functionality.
+    - label: bug
+      instructions: Apply when the PR fixes incorrect behavior.
+    - label: dependencies
+      instructions: Apply when the PR is primarily dependency or lockfile updates.
+    - label: technical-debt
+      instructions: Apply when the PR is a refactor, cleanup, or non-functional improvement.
+  suggested_reviewers: true
+  auto_assign_reviewers: false
+  enable_prompt_for_ai_agents: true
+
+  path_filters:
+    - '!**/vendor/**'
+    - '!**/*.lock'
+    - '!**/*.{svg,png,jpg,jpeg,gif,webp,ico}'
+    - '!**/*.{woff,woff2,ttf,otf,eot}'
+    - '!**/.wordpress-org/**'
+    - '!**/.idea/**'
+
+  path_instructions:
+    - path: '{penny-black.php,src/**/*.php,inc/**/*.php}'
+      instructions: >-
+        This is the Unbox WooCommerce plugin (slug penny-black). Bootstrap is
+        penny-black.php; PSR-4 code lives under src/ as PennyBlackWoo; admin
+        HTML views live in inc/views. Keep the WPINC/ABSPATH abort guards.
+        PHP must stay compatible with 7.4 (composer platform) and the plugin
+        headers (Requires PHP, WC requires at least / WC tested up to).
+        Prefer WooCommerce APIs (settings tabs, wc_get_order, order actions)
+        over custom admin pages or raw SQL. Use factories in src/Factory for
+        the Unbox PHP SDK. Do not break checkout or order-status flows; order
+        transmission must stay fail-safe. Comments should be rare and only
+        explain why. Do not require JSDoc @since tags or that comments end
+        with a period. Do not invent a PHPUnit suite.
+
+    - path: '**/*.php'
+      instructions: >-
+        WordPress/WooCommerce security: nonce-verify state-changing admin
+        actions; check capabilities (manage_woocommerce / manage_options)
+        before settings, prints, or bulk actions; sanitize input and escape
+        output (sanitize_text_field, esc_html, esc_attr, esc_url). Never
+        echo unsanitized $_GET/$_POST. Prefer $order->get_meta() /
+        update_meta_data() over raw post meta where HPOS compatibility
+        matters. Never interpolate unsanitized values into SQL; use
+        $wpdb->prepare() if a query is required. Do not log or render the
+        Penny Black API key. Flag CSRF, XSS, privilege-escalation, and
+        Woo/WP deprecated APIs.
+
+    - path: '{composer.json,penny-black.php,readme.txt}'
+      instructions: >-
+        Plugin version must stay in sync across penny-black.php, readme.txt
+        (Stable tag), and composer.json. PHP constraint is >=7.4.0. The
+        Unbox SDK is stordco/unbox-php-sdk from the private VCS repository.
+        readme.txt is WordPress.org metadata; keep contributors, tested-up-to,
+        and changelog consistent with GitHub releases. .distignore controls
+        what 10up deploy sends to SVN (vendor is included; .github is not).
+
+    - path: '.github/workflows/**'
+      instructions: >-
+        Flag secret exposure, unpinned or unsha-locked actions, and overly
+        broad permissions. Tag pushes deploy the plugin to WordPress.org SVN
+        via 10up/action-wordpress-plugin-deploy (SVN_USERNAME/SVN_PASSWORD,
+        SLUG penny-black) after composer install --no-dev. Commits to main
+        that only change readme.txt and/or .wordpress-org/ update WP.org
+        assets via 10up/action-wordpress-plugin-asset-update. Do not change
+        those triggers in a way that would skip or double-publish SVN.
+
+  auto_review:
+    enabled: true
+    incremental_reviews: true
+    drafts: true
+    ignore_title_keywords:
+      - DO NOT MERGE
+    base_branches:
+      - main
+
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+
+  pre_merge_checks:
+    docstrings:
+      mode: off
+    title:
+      mode: off
+    description:
+      mode: off
+
+  tools:
+    biome:
+      enabled: false
+    languagetool:
+      enabled: false
+    markdownlint:
+      enabled: false
+    eslint:
+      enabled: false
+    reactDoctor:
+      enabled: false
+    ruff:
+      enabled: false
+    phpstan:
+      enabled: false
+    phpcs:
+      enabled: false
+    phpmd:
+      enabled: false
+
+chat:
+  art: false
+  auto_reply: true
+  integrations:
+    jira:
+      usage: auto
+
+knowledge_base:
+  web_search:
+    enabled: true
+  learnings:
+    scope: local
+  jira:
+    usage: enabled
+    project_keys:
+      - UN
+  pull_requests:
+    scope: local
