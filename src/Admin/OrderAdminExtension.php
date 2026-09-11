@@ -44,13 +44,13 @@ class OrderAdminExtension
         if ($order) {
             $orderTransmitter = OrderTransmitterFactory::create();
             if (!$orderTransmitter->hasAlreadyBeenTransmitted($order)) {
-                $actions['penny_black_send'] = 'Send to Penny Black';
+                $actions['penny_black_send'] = 'Send to Unbox';
             }
 
             $orderAdminEnabled = \WC_Admin_Settings::get_option(Settings::FIELD_ENABLE_ORDER_EXTENSIONS);
 
             if ($orderAdminEnabled && $orderAdminEnabled !== 'no') {
-                $actions['penny_black_print'] = 'Print via Penny Black';
+                $actions['penny_black_print'] = 'Print via Unbox';
             }
         }
 
@@ -59,7 +59,7 @@ class OrderAdminExtension
 
     public function addOrderMetaBox()
     {
-        add_meta_box('pb_status_box', 'Penny Black Status', [$this, 'renderOrderMetaBox'], 'shop_order', 'side', 'core');
+        add_meta_box('pb_status_box', 'Unbox Status', [$this, 'renderOrderMetaBox'], 'shop_order', 'side', 'core');
     }
 
     public function renderOrderMetaBox()
@@ -74,7 +74,7 @@ class OrderAdminExtension
         $orderAdminEnabled = \WC_Admin_Settings::get_option(Settings::FIELD_ENABLE_ORDER_EXTENSIONS);
 
         if ($orderAdminEnabled && $orderAdminEnabled !== 'no') {
-            $actions['penny_black_batch_print'] = 'Print via Penny Black';
+            $actions['penny_black_batch_print'] = 'Print via Unbox';
         }
 
         return $actions;
@@ -93,7 +93,7 @@ class OrderAdminExtension
     {
         $printRequester = PrintRequesterFactory::create();
         try {
-            $this->message = "Penny Black: " . $printRequester->print($order);
+            $this->message = "Unbox: " . $printRequester->print($order);
             $this->messageType = 'success';
             add_filter('redirect_post_location', [$this, 'addNotificationQueryVars'], 99, 2);
         } catch (PennyBlackException $e) {
@@ -123,7 +123,7 @@ class OrderAdminExtension
 
         $printRequester = PrintRequesterFactory::create();
         try {
-            $message = "Penny Black: " . $printRequester->printBatch($orderNumbers);
+            $message = "Unbox: " . $printRequester->printBatch($orderNumbers);
         } catch (PennyBlackException $e) {
             $this->message = $e->getMessage();
             $this->messageType = 'error';

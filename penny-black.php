@@ -10,9 +10,9 @@
  * Author: Stord
  * Author URI: https://github.com/stordco/
  * WC requires at least: 7.1
- * WC tested up to: 8.2.2
+ * WC tested up to: 11.1
  * Requires PHP: 7.4
- * Version: 1.3.1
+ * Version: 1.4.0
  */
 
 use PennyBlackWoo\PennyBlackPlugin;

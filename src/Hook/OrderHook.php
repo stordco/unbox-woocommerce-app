@@ -66,7 +66,7 @@ class OrderHook
             update_post_meta(
                 $order->get_id(),
                 OrderTransmitter::STATUS_META_KEY,
-                "ERROR - unexpected, please contact Penny Black support. Details: " . $e->getMessage()
+                "ERROR - unexpected, please contact Unbox support. Details: " . $e->getMessage()
             );
         }
     }
