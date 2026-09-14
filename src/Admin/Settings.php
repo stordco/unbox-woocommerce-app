@@ -42,7 +42,7 @@ class Settings
      */
     public function addSettingsTab($settings_tabs)
     {
-        $settings_tabs['settings_penny_black'] = 'Penny Black';
+        $settings_tabs['settings_penny_black'] = 'Stord Unbox';
 
         return $settings_tabs;
     }
@@ -58,7 +58,7 @@ class Settings
         $settings = array(
             'pb_section_general' => array(
                 'id' => 'pb_section_general',
-                'name' => 'Penny Black Integration Settings',
+                'name' => 'Stord Unbox Integration Settings',
                 'type' => 'title',
                 'desc' => '',
             ),
@@ -76,7 +76,7 @@ class Settings
                 'id' => self::FIELD_API_KEY,
                 'name' => 'API Key',
                 'type' => 'text',
-                'desc' => 'Contact Penny Black support for your API key',
+                'desc' => 'Find your API key in Unbox account settings',
             ),
             self::FIELD_GIFT_MESSAGE_META_FIELD => array(
                 'id' => self::FIELD_GIFT_MESSAGE_META_FIELD,
@@ -88,7 +88,7 @@ class Settings
                 'id' => self::FIELD_ENABLE_TRANSMIT,
                 'name' => 'Enable order transmission',
                 'type' => 'checkbox',
-                'desc' => 'Automatically send orders to Penny Black',
+                'desc' => 'Automatically send orders to Unbox',
             ),
             self::FIELD_TRANSMIT_ON_STATUSES => array(
                 'id' => self::FIELD_TRANSMIT_ON_STATUSES,
@@ -155,7 +155,7 @@ class Settings
         });
         \WC_Admin_Settings::save_fields($justTransmit, [self::FIELD_ENABLE_TRANSMIT => 'off']);
 
-        \WC_Admin_Settings::add_error("You need a valid Penny Black connection to enable order transmission");
+        \WC_Admin_Settings::add_error("You need a valid Unbox connection to enable order transmission");
     }
 
     /**

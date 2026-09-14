@@ -23,7 +23,7 @@ class ApiFactory
         $isTest = \WC_Admin_Settings::get_option(Settings::FIELD_ENVIRONMENT) === Settings::ENVIRONMENT_TEST;
 
         if ($apiKey === null) {
-            throw new MissingApiConfigException('Cannot instantiate PennyBlack API because API key is not set.');
+            throw new MissingApiConfigException('Cannot instantiate Unbox API because API key is not set.');
         }
 
         $httpClient = new Client();

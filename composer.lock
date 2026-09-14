@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c97703ed57f32d227f6005fbe4df7cda",
+    "content-hash": "6d3b10eb03038d960bc4e6be3b01e411",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -336,12 +336,12 @@
             "version": "1.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pennyblack-io/php-sdk.git",
+                "url": "https://github.com/stordco/unbox-php-sdk.git",
                 "reference": "686fc2838e7c4c9cac649fd710a43911ff9a7179"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pennyblack-io/php-sdk/zipball/686fc2838e7c4c9cac649fd710a43911ff9a7179",
+                "url": "https://api.github.com/repos/stordco/unbox-php-sdk/zipball/686fc2838e7c4c9cac649fd710a43911ff9a7179",
                 "reference": "686fc2838e7c4c9cac649fd710a43911ff9a7179",
                 "shasum": ""
             },
@@ -397,8 +397,8 @@
             ],
             "description": "Penny Black PHP SDK",
             "support": {
-                "source": "https://github.com/pennyblack-io/php-sdk/tree/1.5.0",
-                "issues": "https://github.com/pennyblack-io/php-sdk/issues"
+                "source": "https://github.com/stordco/unbox-php-sdk/tree/1.5.0",
+                "issues": "https://github.com/stordco/unbox-php-sdk/issues"
             },
             "time": "2024-01-19T09:23:35+00:00"
         },
@@ -677,15 +677,15 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.4.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "7.4.0"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.9.0"
 }
